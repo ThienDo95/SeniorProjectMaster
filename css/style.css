@@ -1,0 +1,208 @@
+.alert-badge{
+  padding-top: 0;
+}
+
+.img-wrapper img{
+  height: 100px;
+  width: 100px;
+}
+
+.navbar-default{
+	background: #000;
+	border: 0;
+	font-family: Poppins;
+}
+.navbar {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+.images img{
+	height: 140px;
+	width: 120px;
+}
+.homebanner{
+	margin-top: 10px;
+	background-size: cover;
+	margin-right: 80px;
+	margin-left: 75px;
+}
+#testimonial{
+  background: #FFFFFF;
+  padding: 50px 0 30px 0;
+  text-align:center;
+  margin-top:20px;
+
+}
+#testimonial p{
+  font-size:32px;
+  font-family: 'Josefin Sans';
+  color:#000;
+}
+#testimonial p.customer{
+  font-size:20px;
+  color:#666;
+}
+
+.col{
+  float:left;
+  width:33.3%;
+  padding:8px;
+  box-sizing:border-box;
+}
+
+.price-box{
+  background:#fff;
+  color:#555;
+  list-style-type:none;
+  border:1px solid #555;
+  margin:0;
+  padding:0;
+  transition:0.3s;
+}
+
+.price-box:hover, .price-box.best{
+  box-shadow: 0 10px 15px 0 #000;
+}
+
+.price-box .header{
+  background-color:#111;
+  color:#fff;
+  font-size:25px;
+}
+
+
+
+.price-box li{
+  padding:20px;
+  border-bottom:1px solid #eee;
+  text-align:center;
+}
+
+.price-box .emph{
+  background-color:#f4f4f4;
+  font-ize:20px;
+}
+
+.button{
+  background-color:#4CAf50;
+  border:none;
+  color:#fff;
+  padding: 10px 15px;
+  text-align:center;
+  text-decoration:none;
+  font-size:18px;
+}
+
+@media(max-width:700px){
+  .col{
+    width:100%;
+  	}
+  }
+
+  #showcase h1{
+  font-size:50px;
+  margin-bottom:20px;
+}
+
+#showcase img{
+  width:90%;
+  margin-right: 0px;
+  margin-left:-30px;
+  margin-top: 0px;
+  margin-bottom: 20px;
+  height: 300px;
+  width: 300px;
+
+}
+
+#showcase .showcase-right{
+  margin-top:30px;
+  margin-right: 15px;
+
+}
+
+footer{
+  padding:-21px;
+
+}
+
+#contact{
+  background:url(banner.jpeg);
+  padding:40px;
+  color:#fff;
+  border-top:#333 7px solid;
+  border-bottom:#333 7px solid;
+}
+
+.thumbnail img{
+  height: 240px;
+  width: 200px;
+}
+
+#contact .img-index-wrap img{
+  height: 100px;
+  width: 100px;
+}
+
+.navbar-default{
+  background:#fff;
+  border:0;
+  font-family:Poppins;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+
+.header-overlay{
+  height:100vh;
+  position: absolute;
+  top:0;
+  left:0;
+  width:100vw;
+  z-index:1;
+  background:#225470;
+  opacity:0.85;
+}
+
+.header-content{
+  z-index:2;
+}
+
+.header-content h1{
+  font-size:50px;
+  margin-bottom:0;
+}
+
+.header-content p{
+  font-size:1.5rem;
+  display:block;
+  padding-bottom:2rem;
+}
+
+.btn{
+  background: #34b3a0;
+  color:#fff;
+  font-size:1.2rem;
+  padding: 1rem 2rem;
+  text-decoration: none;
+}
+
+.section{
+  padding:20px 0;
+}
+
+.section-b{
+  background:#333;
+  color:#fff;
+}
+
+@media(max-width:960px){
+  .container{
+    padding-right:3rem;
+    padding-left:3rem;
+  }
+}
