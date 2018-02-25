@@ -1,23 +1,26 @@
 <?php 
-    if(!isset($_POST['target'])) {     
-        echo "nope";        
-    } else {
-        header('Content-Type: text/plain; charset=utf-8');
+    header('Content-Type: text/plain; charset=utf-8');
+    require_once('includes/aws/aws-autoloader.php');
         
-        $target = $_POST['target'];
-        $source = "source.jpg"; //this will be some image from the server.
-        
-        require_once('includes/aws/aws-autoloader.php');
-        
-        use Aws\Credentials\CredentialProvider;
-        use Aws\Rekognition\RekognitionClient;
+    use Aws\Credentials\CredentialProvider;
+    use Aws\Rekognition\RekognitionClient;
     
+    if ($_FILES["target"]["error"] > 0) {
+        echo "Error: " . $_FILES["target"]["error"] . "<br />";       
+    } else {
+        
+        $target = $_FILES["target"]["tmp_name"];
+        $source = "source.jpg"; //this will be some image from the server.
+        //$source = "1.jpg"; // for testing
+
+        
         $client = new RekognitionClient([
             'version' => 'latest',
             'region'  => 'us-east-1',
             'credentials' => CredentialProvider::defaultProvider()
         ]);
         
+
         $result = $client->compareFaces([
             'SimilarityThreshold' => 70,
             'SourceImage' => [
@@ -28,15 +31,16 @@
             ],
         ]);
         
-        $match = "False";
 
-        foreach($result["FaceMatches"] as $face) {
+        $match = "False";
+        
+        foreach($result['FaceMatches'] as $face) {
             if($face['Similarity'] > 85) {
                 $match = "True";
             }
         }
-        
-        echo $match;
-    }
 
+        echo $match;
+
+    }
 ?>
