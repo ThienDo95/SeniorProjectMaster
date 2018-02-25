@@ -2,6 +2,7 @@ from gpiozero import LED, Button
 from picamera import PiCamera
 from time import sleep
 import requests
+import os
 
 # Where the photos will be sent.
 url = 'http://ec2-52-207-254-139.compute-1.amazonaws.com/test/face_recognition.php'
@@ -31,23 +32,32 @@ while True:
         
         # take picture
         with PiCamera() as cam:
-            cam.capture('face', format='jpeg')
+            cam.rotation = 90
+            #cam.resolution = '640x480'
+            cam.capture('face.jpg', format='jpeg')
+        print('pic taken1')
         
-        # store byte images for sending    
-        file = {'target': target}
+        
+        file = {'target': open('/home/pi/face.jpg', 'rb')}
         
         # send images to specified url
-        r = requests.post(url, data=file)
-        
+        r = requests.post(url, files=file)
+
         # read results
         results = r.text
         
-        # NOT TESTED YET Need to find how results are printed.
-        if(results is 'False'):   # No match. Go to Fail
-            state = 'fail'
-        else:
-            state = 'white' # Match. Unlock door
-                
+        
+        print("RESULTS: ", results)
+
+        #state = 'total failure'
+        
+        
+        if("False" in results): state = 'fail'   # No Match
+        elif("True" in results): state = 'white' # Match. Unlock door
+        #For Debugging
+        #elif(results is ''): state = 'blank'
+        #else: state = 'total failure'
+          
     elif(state is 'white'):
         amber.off()
         white.on()
@@ -67,6 +77,14 @@ while True:
         
         red.off()
         state = 'red'   # Go back to default state.
+    '''
+    #For Debugging
+    elif(state is 'total failure'):
+        print('FAILED')
+        sleep(30)
+    elif(state is 'blank'):
+        print('BLANK')
+        sleep(30)   
+    '''    
         
         
- 
