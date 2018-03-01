@@ -34,11 +34,11 @@ while True:
         with PiCamera() as cam:
             cam.rotation = 90
             #cam.resolution = '640x480'
-            cam.capture('face.jpg', format='jpeg')
+            cam.capture('/var/www/html/face.jpg', format='jpeg')
         print('pic taken1')
         
         
-        file = {'target': open('/home/pi/face.jpg', 'rb')}
+        file = {'target': open('/var/www/html/face.jpg', 'rb')}
         
         # send images to specified url
         r = requests.post(url, files=file)
@@ -85,6 +85,5 @@ while True:
     elif(state is 'blank'):
         print('BLANK')
         sleep(30)   
-    '''    
-        
+    '''   
         
