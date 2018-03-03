@@ -76,7 +76,7 @@ Upload Picture
 		  <div class ="content">
 			<form action ="upload.php" method="Post" enctype ="multipart/form-data">
 			  <center><h4> Select image to upload: </h4></center>
-			  <center><input type="File" name="file" id="file"></center>
+			  <center><input type="File" name="image" id="image"></center>
 			  <br>
 			  <center><button type="submit" class="btn btn-primary">Upload</button></center>
 			</form>
