@@ -10,7 +10,8 @@
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
       <link href="css/app.css" rel="stylesheet">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-
+	<link rel="stylesheet" type="text/css" href="http://ec2-52-207-254-139.compute-1.amazonaws.com/resources/UberGallery.css" />
+	<link rel="stylesheet" type="text/css" href="http://ec2-52-207-254-139.compute-1.amazonaws.com/resources/colorbox/1/colorbox.css" />
 
         <title>Test</title>
 
@@ -75,3 +76,17 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://ec2-52-207-254-139.compute-1.amazonaws.com/resources/colorbox/jquery.colorbox.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $("a[rel='colorbox']").colorbox({maxWidth: "90%", maxHeight: "90%", opacity: ".5"});
+});
+</script>
+<?php 
+
+session_start(); 
+ob_start();
+
+?>

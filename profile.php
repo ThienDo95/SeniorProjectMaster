@@ -2,13 +2,13 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-
-
 include ('includes.php');
 
 include ('header.php');
 
 include ('mysql_connect.php');
+
+include_once('resources/UberGallery.php'); 
 
 if(!isset($_SESSION['login'])){
 	header('Location: /');
@@ -51,12 +51,25 @@ unset($_SESSION['msg']);
  <center> <h4>To begin, please click on <b> Add Device </b> to add a Rasberry Pi to your account </h4> </center>
  <br>
 <center>
+
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deviceModal">
-Add Device
+<i class="fa fa-plus"></i> Add Device
 </button>
-<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#uploadModal">
-Upload Picture
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadModal">
+<i class="fa fa-cloud-upload"></i> Upload Picture
 </button>
+
+<br><br>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewDeviceModal">
+<i class="fa fa-file-text"></i> View Devices
+</button>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#photoModal">
+<i class="fa fa-picture-o"></i> View Pictures
+</button>
+
 </center>
 
 
@@ -108,7 +121,8 @@ Upload Picture
                  </div>
 			 
 				<div class="form-group">
-				<center><button type="submit" class="btn btn-primary">Generate Token</button></center>
+				<center><button type="submit" class="btn btn-primary"><i class="fa fa-plus-square" aria-hidden="true"></i>
+ Generate Token</button></center>
 				</div>
 			</form>
 		  
@@ -118,40 +132,69 @@ Upload Picture
   </div>
 </div>
 
+<!-- View Photo Modal -->
+<div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          X
+        </button>
+      </div>
+      <div class="modal-body">
+					
+			<?php $gallery = UberGallery::init()->createGallery('users/' . $_SESSION['login']); ?>
+			
+      </div>
+    </div>
+  </div>
+</div>
 
-<?php
-	//Find any devices added and if there are at least one, dynamically generate a Bootstrap table
-	$id = $_SESSION['login'];
+<!-- View Devices Modal -->
+<div class="modal fade" id="viewDeviceModal" tabindex="-1" role="dialog" aria-labelledby="viewDeviceModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          X
+        </button>
+      </div>
+      <div class="modal-body">
+					
+			<?php
+				//Find any devices added and if there are at least one, dynamically generate a Bootstrap table
+				$id = $_SESSION['login'];
+				
+				$findDevices = $mysqli->prepare("SELECT token,device_name FROM devices WHERE user_id = ?");
+				$findDevices->bind_param("i", $id);
+				$findDevices->execute();
+				$findDevices->store_result();
+				$findDevices->bind_result($token, $device_name);
+				
+				if($findDevices->num_rows > 0){
 	
-	$findDevices = $mysqli->prepare("SELECT token,device_name FROM devices WHERE user_id = ?");
-	$findDevices->bind_param("i", $id);
-	$findDevices->execute();
-	$findDevices->store_result();
-	$findDevices->bind_result($token, $device_name);
-	
-	if($findDevices->num_rows > 0){
-	
-?>
-<br>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+			?>
+			
 			<table class="table table-hover">
 				<thead>
 					<tr>
 						<th style="text-align: center">Device Name</th>
 						<th style="text-align: center">Token</th>
+						<th style="text-align: center">QR</th>
 					</tr>
 				</thead>
 						<tbody>
 
 							<?php
+	
 								while ($findDevices->fetch()) {
 							?>
-								  <tr>
+								 
+								<tr>
 									<td style="text-align: center"><?php echo $device_name;?></td>
 									<td style="text-align: center"><?php echo $token;?></td>
+									<td style="text-align: center"><img src="https://api.qrserver.com/v1/create-qr-code/?data=<?php echo $token ?>&amp;size=150x150" alt="" title="" /></td>
+
 								  </tr>
 							<?php		
 								}
@@ -159,14 +202,28 @@ Upload Picture
 						</tbody>
 		</table>
 	
-		</div>
-	</div>
-</div>
 	
 <?php	
 	
-	}	
+	} else{	
 ?>
+
+	<strong>No photos have been uploaded</strong>
+
+<?php	
+	
+	} 	
+?>			
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<br>
+
+
 
 
 
