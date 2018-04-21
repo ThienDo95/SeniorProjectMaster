@@ -1,0 +1,15 @@
+Samuel Liebe-Randall
+
+-Helped with the initial planning stage and overall design of the project.
+
+-Assisted in the initial draft for the Design Document.
+
+-Assited in website design. 
+	-Header
+	-Homepage
+
+I was involved in the inital design of the project, moving from a security system
+which monitors threats, to a do it yourself video camera, and till final the
+recognition system. After that I was assisting in the first drafts of the different
+documents, as well as assisted in the design of some PHP elements, such as a header
+and some homepage updates.
