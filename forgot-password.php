@@ -32,6 +32,7 @@ include ('send_link.php');
                                 </button>
                             </div>
                         </div>
+                        
                     </form>
                 </div>
             </div>
