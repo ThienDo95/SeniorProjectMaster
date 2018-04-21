@@ -70,6 +70,12 @@ unset($_SESSION['msg']);
 <i class="fa fa-picture-o"></i> View Pictures
 </button>
 
+<br><br>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deletephotoModal">
+<i class="fa fa-delete"></i> Delete Photos
+</button>
+
 </center>
 
 
@@ -89,7 +95,7 @@ unset($_SESSION['msg']);
 		  <div class ="content">
 			<form action ="upload.php" method="Post" enctype ="multipart/form-data">
 			  <center><h4> Select image to upload: </h4></center>
-			  <center><input type="File" name="image" id="image"></center>
+			  <center><input type="File" name="images[]" id="image" multiple="multiple"/></center>
 			  <br>
 			  <center><button type="submit" class="btn btn-primary">Upload</button></center>
 			</form>
@@ -143,8 +149,8 @@ unset($_SESSION['msg']);
       </div>
       <div class="modal-body">
 					
-			<?php $gallery = UberGallery::init()->createGallery('users/' . $_SESSION['login']); ?>
-			
+		<?php $gallery = UberGallery::init()->createGallery('users/' . $_SESSION['login']); ?>
+						    
       </div>
     </div>
   </div>
@@ -175,12 +181,14 @@ unset($_SESSION['msg']);
 	
 			?>
 			
-			<table class="table table-hover">
+			<table class="table table-hover ">
 				<thead>
 					<tr>
+						<!--
 						<th style="text-align: center">Device Name</th>
 						<th style="text-align: center">Token</th>
 						<th style="text-align: center">QR</th>
+						-->
 					</tr>
 				</thead>
 						<tbody>
@@ -191,11 +199,23 @@ unset($_SESSION['msg']);
 							?>
 								 
 								<tr>
-									<td style="text-align: center"><?php echo $device_name;?></td>
-									<td style="text-align: center"><?php echo $token;?></td>
-									<td style="text-align: center"><img src="https://api.qrserver.com/v1/create-qr-code/?data=<?php echo $token ?>&amp;size=150x150" alt="" title="" /></td>
-
-								  </tr>
+									<th style="text-align: left"><center>Name</center></th>
+									<td style="text-align: left"><center><?php echo $device_name;?></center></th>
+								</tr>
+								<tr>
+									<th style="text-align: left"><center>Token</center></th>
+									<td style="text-align: left"><center><?php echo $token;?></center></td>
+								</tr>
+								<tr>
+									<th style="text-align: left"><center>QR</center></th>
+									<td style="text-align: left"><center><img src="https://api.qrserver.com/v1/create-qr-code/?data=<?php echo $token ?>&amp;size=150x150" alt="" title="" /></center></td>
+								</tr>
+								<tr style="padding-bottom: 5em;">
+									<th style="text-align: left"><center>Remove</center></th>
+									<td><center><a href="/deletedevice.php?token=<?php echo $token ?>" class="btn btn-danger">Remove Device Above</a></center></td>
+								</tr>	
+								
+															
 							<?php		
 								}
 							?>
@@ -208,7 +228,7 @@ unset($_SESSION['msg']);
 	} else{	
 ?>
 
-	<strong>No photos have been uploaded</strong>
+	<center><strong>No devices are currently created</strong></center>
 
 <?php	
 	
@@ -220,12 +240,43 @@ unset($_SESSION['msg']);
 </div>
 
 
+<!-- Delete Photo Modal -->
+<div class="modal fade" id="deletephotoModal" tabindex="-1" role="dialog" aria-labelledby="deletephotoModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          X
+        </button>
+      </div>
+      <div class="modal-body">
+					
 
-<br>
+					<?php
+						$path = 'users/'.$_SESSION['login'];
+						$images = scandir($path);
+						$ignore = Array(".", "..", "target"); 
 
+						echo "<form method='post' action='deletephoto.php'>";
+						echo "<table>";
+						foreach($images as $curimg){ 
+						
+							if(!in_array($curimg, $ignore)){
+								echo "<tr align='center'>";
+								echo "<td><input type='checkbox' name='photos[]' value='$path/$curimg'></td>";
+								echo "<td><img style='max-width: 450px;' src='$path/$curimg' alt=''  /></td>";
+								echo "</tr>";
+							}
+							
+						} 
+						echo "<tr><td><input type='submit' name='submit' value='DELETE'></td></tr>";
+						echo "</table>";
+						echo "</form>"; 
+					?>
 
-
-
-
+      </div>
+    </div>
+  </div>
+</div>
 
 <?php include ('footer.php');?>
