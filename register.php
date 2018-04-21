@@ -10,6 +10,7 @@ if(isset($_SESSION['login'])){
 	header('location: /profile.php');
 }
 
+
 if(isset($_POST['name'])&&isset($_POST['email'])&&isset($_POST['password'])&&isset($_POST['password_confirmation'])){
   
   if($_POST['password']==$_POST['password_confirmation']){
@@ -36,7 +37,9 @@ if(isset($_POST['name'])&&isset($_POST['email'])&&isset($_POST['password'])&&iss
 		
 		if (!is_dir($dir)) {
 			mkdir($dir, 0777);
-			mkdir($dir.'/source', 0777);
+			chmod($dir, 0777);
+			mkdir($dir.'/target', 0777);
+			chmod($dir.'/target', 0777);
 		}
 
 		$_SESSION['login']=$id;
@@ -46,7 +49,8 @@ if(isset($_POST['name'])&&isset($_POST['email'])&&isset($_POST['password'])&&iss
 		header('Location: /profile.php');
 		
 	  
-	  } else {
+	  } 
+	  else {
 		$_SESSION['msg'] = "Email already exists";
 	  }
 
@@ -123,4 +127,4 @@ unset($_SESSION['msg']);
     </div>
 </div>
 
-<?php include ('footer.php');?>
+<?php include ('footer.php'); ?>
