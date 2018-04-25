@@ -1,0 +1,19 @@
+Contribution to Project
+
+1.	Design
+    a.	Collaborated with team on the design process throughout project.
+    b.	Contributed to the Project Spec and Design Doc.
+2.	Raspberry Pi
+    a.	Supplied Hardware.
+    b.	Created Button and LED display (i.e. Soldering, etc.).
+    c.	Installed and setup Raspbian.
+    d.	Developed and implemented Python code for Pi Face which includes but not limited to:
+        i.   Implementing QR Code Reader.
+        ii.  Controlling Camera Module.
+        iii. Controlling GPIO Devices (Button, LEDs).
+        iv.	 Sending and receiving information to and from server.
+3.	Website 
+    a.	Developed and implemented face_recog.php script for receiving photos, accessing AWS Rekognition and returning result. 
+    b.	Consulted on how to store photos and where to store stitched photos.
+4.	Presenting
+    a.	Performed prototype (video), mid-semester and final demonstrations.
