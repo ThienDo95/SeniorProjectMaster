@@ -9,6 +9,7 @@ require_once('test/includes/aws/aws-autoloader.php');
 use Aws\Credentials\CredentialProvider;
 use Aws\Rekognition\RekognitionClient;
 
+//Check for Token
 if (!isset($_POST['token'])) {
     echo "Not Token Submitted.";
 } else {
@@ -30,21 +31,15 @@ if (!isset($_POST['token'])) {
     if($success == NULL){
         echo "An Error Occured.";
     } elseif (!$success) {
-        echo "Nothign was Returned.";
+        echo "Token Not Found.";
     } else {
-
+        //Compare image
         if ($_FILES["source"]["error"] > 0) {
             echo "Error: " . $_FILES["source"]["error"] . "<br />";       
         } else {
             
             $source = $_FILES["source"]["tmp_name"];
-            
-            //$dir = "./users/$id/target";
-            //$a = scandir($dir);
-            //$num_targets = count($a) - 2;
-
             $target = "./users/$id/target/1.jpg"; 
-            
             
             $client = new RekognitionClient([
                 'version' => 'latest',
@@ -52,7 +47,6 @@ if (!isset($_POST['token'])) {
                 'credentials' => CredentialProvider::defaultProvider()
             ]);
             
-
             $result = $client->compareFaces([
                 'SimilarityThreshold' => 70,
                 'SourceImage' => [
@@ -63,27 +57,20 @@ if (!isset($_POST['token'])) {
                 ],
             ]);
             
-            /* For Testing
-            $conf = $result['SourceImageFace']['Confidence'];
-            $sim = $result['FaceMatches'][0]['Similarity'];
-            
-            $return = "Confidence: $conf, Similarity: $sim";
-            echo $return;
-            */
-            
             $match = "False ";
             $info = $result['SourceImageFace']['Confidence'];
             
-            if($info < 99.99) {
+            if($info < 99.999) {
                 echo $match.$info;
             } else {
                 foreach($result['FaceMatches'] as $face) {
-                    if($face['Similarity'] > 94) {
+                    if($face['Similarity'] > 90) {
                         $match = "True ";
                     }
                 }
                 echo $match.$info;
             }
+            
         }
     }
 }
