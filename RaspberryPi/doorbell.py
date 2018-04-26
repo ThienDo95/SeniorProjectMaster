@@ -4,6 +4,7 @@ author: Dimitrios Topalis
 from gpiozero import LED, Button
 from picamera import PiCamera
 from PIL import Image
+from time import sleep
 import zbarlight
 import requests
 import os
@@ -120,31 +121,32 @@ while True:
         results = r.text
 
         print("RESULTS: ", results) # For Testing
-
+        
         if("False" in results): state = 'fail'   # No Match
         elif("True" in results): state = 'white' # Match. Unlock door
         else: state = 'sww' # Something Went Wrong
 
     elif(state is 'white'): # Match found
-
         setLEDs(state)
         # this button press will simulate unlocking door
         btn.wait_for_press()
         btn.wait_for_release()
-
+        sleep(0.5) # To prevent multiple presses
         state = 'red'   # Go back to ready state
     elif(state is 'fail'): # No match found
         setLEDs(state)
         # this button press will simulate unlocking door
         btn.wait_for_press()
         btn.wait_for_release()
-
+        sleep(0.5) # To prevent multiple presses
+        
         red.off()
         state = 'red'   # Go back to default state
     elif(state is 'sww'): # Something went wrong
         setLEDs(state)
         btn.wait_for_press()
         btn.wait_for_release()
+        sleep(0.5) # To prevent multiple presses
 
-        red.off()
         state = 'red'   # Go back to ready state
+
