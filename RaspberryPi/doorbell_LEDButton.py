@@ -1,3 +1,6 @@
+'''
+author: Dimitrios Topalis
+'''
 from gpiozero import LED, Button, PWMLED
 from picamera import PiCamera
 from PIL import Image
